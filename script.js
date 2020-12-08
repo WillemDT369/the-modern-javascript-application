@@ -1,11 +1,11 @@
 let unit = "metric";
 let appId = "973c1e93dca799be6bfb0246ebbab1b3";
-let url = "https://api.openweathermap.org/data/2.5/weather?q="
-
+let url = "api.openweathermap.org/data/2.5/weather?q="
+    //TODO: add forecast
 
 function searchWeather(cityName) {
     // also check `${}`syntax
-    fetch(url + cityName + "&appid=" + appId + "&units=" + unit)
+    fetch("https://" + url + cityName + "&appid=" + appId + "&units=" + unit)
         // Convert data to json    
         .then(function(result) {
             return result.json()
@@ -19,8 +19,10 @@ function searchWeather(cityName) {
 }
 
 function displayWeatherInfo(apiData) {
+    console.log(apiData);
     // changing the background depending on which info it gets from the api
-    switch (apiData.weather[0].main) {
+    let weather = apiData.weather[0].main;
+    switch (weather) {
         case "Clear":
             document.body.style.backgroundImage = "url('./images/clear.jpg')";
             break;
@@ -43,25 +45,31 @@ function displayWeatherInfo(apiData) {
         default:
             break;
     }
-    // assigning the html elements
+    // assigning and inserting per element
     let forecastHeader = document.getElementById("forecastHeader");
-    let description = document.getElementById("description");
-    let weatherIcon = document.getElementById("weatherIcon");
-    let temperature = document.getElementById("temperature");
-    let temperatureFeel = document.getElementById("temperatureFeel");
-    let windSpeed = document.getElementById("windSpeed");
-    let windDirection = document.getElementById("windDirection");
-    let humidity = document.getElementById("humidity");
-
-    // putting info from api inside html elements
     forecastHeader.innerText = apiData.name;
+
+    let description = document.getElementById("description");
     description.innerHTML = apiData.weather[0].description;
+
+    let weatherIcon = document.getElementById("weatherIcon");
     weatherIcon.src = "http://openweathermap.org/img/wn/" + apiData.weather[0].icon + ".png";
+
+    let temperature = document.getElementById("temperature");
     temperature.innerHTML = "Todays temperature is " + Math.floor(apiData.main.temp) + "°C,";
+
+    let temperatureFeel = document.getElementById("temperatureFeel");
     temperatureFeel.innerHTML = "but it feels like " + Math.floor(apiData.main.feels_like) + "°C"
+
+    let windSpeed = document.getElementById("windSpeed");
     windSpeed.innerHTML = "Winds blows at " + apiData.wind.speed + "m/s";
+
+    let windDirection = document.getElementById("windDirection");
     windDirection.innerHTML = "Wind direction is " + apiData.wind.deg + " degrees";
+
+    let humidity = document.getElementById("humidity");
     humidity.innerHTML = "Humidity levels at " + apiData.main.humidity + "%";
+
     // making the weatherforecast visible when clicked
     weatherForecast.style.visibility = "visible";
 
