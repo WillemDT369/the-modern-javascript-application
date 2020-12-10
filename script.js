@@ -2,15 +2,15 @@ let unit = "metric";
 let apiKey = "973c1e93dca799be6bfb0246ebbab1b3";
 let urlToday = "api.openweathermap.org/data/2.5/weather?q=";
 let urlForecast = "api.openweathermap.org/data/2.5/onecall?";
-let city = document.getElementById("city").value;
+
 let longitude = 50.98;
 let latitude = 3.87;
 
-//TODO: fix stuck value of city
 document.getElementById("run").addEventListener("click", (event) => {
     // city has to be inside here otherwise it gets stuck in the first chosen city
     // cancels the default action (here: of the form action attribute) 
     //https://www.w3schools.com/jsref/event_preventdefault.asp
+    let city = document.getElementById("city").value;
     event.preventDefault();
     if (searchWeather(city)) {
         searchWeather(city);
@@ -48,7 +48,9 @@ function getLongitude(data) {
 function displayWeatherInfo(apiData) {
     console.log(apiData);
 
+    //TODO: Change background when after sunset and from morning till sunset, local time
     // changing the background depending on which info it gets from the api
+
     let weather = apiData.weather[0].main;
     switch (weather) {
         case "Clear":
@@ -119,26 +121,52 @@ function forecastInfo() {
             // catch any errors
         });
 }
+// Forecast section
+
 //TODO: create days of the week for forecast
 function getForecast(forecastData) {
     console.log(forecastData);
+
+    // creating days of week
+
+    // Get date From UNIX Timestamp
+    let day1 = new Date(forecastData.daily[1].dt * 1000);
+    let day2 = new Date(forecastData.daily[2].dt * 1000);
+    let day3 = new Date(forecastData.daily[3].dt * 1000);
+    let day4 = new Date(forecastData.daily[4].dt * 1000);
+    let day5 = new Date(forecastData.daily[5].dt * 1000);
+
+    // Getting the days in numbers for the forecast
+    let dayOfForecast1 = day1.getDay();
+    let dayOfForecast2 = day2.getDay();
+    let dayOfForecast3 = day3.getDay();
+    let dayOfForecast4 = day4.getDay();
+    let dayOfForecast5 = day5.getDay();
+
+    let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    console.log(daysOfWeek[dayOfForecast1]);
+
+
     // Assigning the days to the corresponding html element
     let day1Day = document.getElementById("day-1-day");
-    day1Day.innerHTML;
+    day1Day.innerHTML = daysOfWeek[dayOfForecast1];
 
     let day2Day = document.getElementById("day-2-day");
-    day2Day.innerHTML;
+    day2Day.innerHTML = daysOfWeek[dayOfForecast2];
 
     let day3Day = document.getElementById("day-3-day");
-    day3Day.innerHTML;
+    day3Day.innerHTML = daysOfWeek[dayOfForecast3];
 
     let day4Day = document.getElementById("day-4-day");
-    day4Day.innerHTML;
+    day4Day.innerHTML = daysOfWeek[dayOfForecast4];
 
     let day5Day = document.getElementById("day-5-day");
-    day5Day.innerHTML;
-    //TODO: try making for-loops
-    //// Assigning the temperatures to the corresponding html element
+    day5Day.innerHTML = daysOfWeek[dayOfForecast5];
+
+    //TODO: Try making for-loops
+    //TODO: Adjust temperatures according to part of the day
+
+    // Assigning the temperatures to the corresponding html element
     for (i = 1; i < 6; i++) {}
 
     let day1Temp = document.getElementById("day-1-temperature");
