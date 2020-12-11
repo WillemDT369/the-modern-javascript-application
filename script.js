@@ -13,7 +13,7 @@ document.getElementById("run").addEventListener("click", (event) => {
     if (searchWeather(city)) {
         searchWeather(city);
     }
-})
+});
 
 searchWeather = (cityName) => {
     console.log(cityName);
@@ -81,7 +81,7 @@ displayWeatherInfo = (apiData) => {
         temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", nice";
     } else {
         temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", ahh bummer";
-    }
+    };
 
     let windSpeed = document.getElementById("windSpeed");
     windSpeed.innerHTML = "Wind blows at " + apiData.wind.speed + "m/s";
@@ -101,7 +101,6 @@ displayWeatherInfo = (apiData) => {
 getLongitude = (data) => {
         long = data.coord.lon;
         lat = data.coord.lat;
-        // console.log(long, lat);
 
         forecastInfo = () => {
             // also check `${}`
@@ -135,19 +134,6 @@ getForecast = (forecastData) => {
     let day4 = new Date(forecastData.daily[4].dt * 1000);
     let day5 = new Date(forecastData.daily[5].dt * 1000);
 
-    // let days = [
-
-    //     day1,
-    //     day2,
-    //     day3,
-    //     day4,
-    //     day5,
-    // ];
-
-    // days.forEach((value, index) => {
-    //     value = new Date(forecastData.daily[index + 1].dt * 1000);;
-    // })
-
     // Getting the days in numbers for the forecast
     let dayOfForecast1 = day1.getDay();
     let dayOfForecast2 = day2.getDay();
@@ -164,7 +150,7 @@ getForecast = (forecastData) => {
         dayOfForecast4,
         dayOfForecast5,
 
-    ]
+    ];
 
     let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -193,7 +179,6 @@ getForecast = (forecastData) => {
 
     };
 
-    //TODO: Try making for-loops
     //TODO: Adjust temperatures according to part of the day
 
     // Assigning the temperatures to the corresponding html element
@@ -216,7 +201,7 @@ getForecast = (forecastData) => {
     for (i = 0; i < dayTemperatures.length; i++) {
         dayTemperatures[i];
         dayTemperatures[i].innerHTML = Math.floor(forecastData.daily[i + 1].temp.day) + "°c";
-    }
+    };
 
 
     // Assigning a small description to the corresponding html element
@@ -240,6 +225,6 @@ getForecast = (forecastData) => {
     for (i = 0; i < dayDescriptions.length; i++) {
         dayDescriptions[i];
         dayDescriptions[i].innerHTML = forecastData.daily[i + 1].weather[0].main;;
-    }
+    };
 
 }
