@@ -58,6 +58,14 @@ hr {
     padding: 5px;
 }
 
+#temperature span {
+    font-size: 40px;
+}
+
+#temperatureFeel span {
+    font-size: 30px;
+}
+
 #fiveDayForecast {
     display: flex;
     background-color: rgba(20, 19, 19, 0.397);
