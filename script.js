@@ -187,19 +187,42 @@ getForecast = (forecastData) => {
 
 
     // Assigning a small description to the corresponding html element
+
     let day1Description = document.getElementById("day-1-description");
-    day1Description.innerHTML = forecastData.daily[1].weather[0].main;
-
     let day2Description = document.getElementById("day-2-description");
-    day2Description.innerHTML = forecastData.daily[2].weather[0].main;
-
     let day3Description = document.getElementById("day-3-description");
-    day3Description.innerHTML = forecastData.daily[3].weather[0].main;
-
     let day4Description = document.getElementById("day-4-description");
-    day4Description.innerHTML = forecastData.daily[4].weather[0].main;
-
     let day5Description = document.getElementById("day-5-description");
-    day5Description.innerHTML = forecastData.daily[5].weather[0].main;
+
+    let dayDescriptions = [
+
+        day1Description,
+        day2Description,
+        day3Description,
+        day4Description,
+        day5Description,
+
+    ];
+
+    for (i = 1; i < 6; i++) {
+        dayDescriptions[i - 1];
+        dayDescriptions[i - 1].innerHTML = forecastData.daily[i].weather[0].main;;
+    }
+
+
+    // let day1Description = document.getElementById("day-1-description");
+    // day1Description.innerHTML = forecastData.daily[1].weather[0].main;
+
+    // let day2Description = document.getElementById("day-2-description");
+    // day2Description.innerHTML = forecastData.daily[2].weather[0].main;
+
+    // let day3Description = document.getElementById("day-3-description");
+    // day3Description.innerHTML = forecastData.daily[3].weather[0].main;
+
+    // let day4Description = document.getElementById("day-4-description");
+    // day4Description.innerHTML = forecastData.daily[4].weather[0].main;
+
+    // let day5Description = document.getElementById("day-5-description");
+    // day5Description.innerHTML = forecastData.daily[5].weather[0].main;
 
 }
