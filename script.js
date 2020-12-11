@@ -15,7 +15,7 @@ document.getElementById("run").addEventListener("click", (event) => {
     }
 })
 
-function searchWeather(cityName) {
+searchWeather = (cityName) => {
     console.log(cityName);
     // also check `${}`syntax
     fetch("https://" + urlToday + cityName + "&appid=" + apiKey + "&units=" + unit)
@@ -33,7 +33,7 @@ function searchWeather(cityName) {
 }
 
 // Current weather section
-function displayWeatherInfo(apiData) {
+displayWeatherInfo = (apiData) => {
     console.log(apiData);
 
     //TODO: Change background when after sunset and from morning till sunset, local time
@@ -98,12 +98,12 @@ function displayWeatherInfo(apiData) {
 
 
 
-function getLongitude(data) {
+getLongitude = (data) => {
     long = data.coord.lon;
     lat = data.coord.lat;
     // console.log(long, lat);
 
-    function forecastInfo() {
+    forecastInfo = () => {
         // also check `${}`
         // Using a default setting from api to test, needs to get coordinates from current weather api
 
@@ -126,7 +126,7 @@ function getLongitude(data) {
 
 // Forecast section
 
-function getForecast(forecastData) {
+getForecast = (forecastData) => {
     console.log(forecastData);
 
     // Creating days of week
