@@ -16,7 +16,7 @@ document.getElementById("run").addEventListener("click", (event) => {
 });
 
 searchWeather = (cityName) => {
-    console.log(cityName);
+
     // also check `${}`syntax
     fetch("https://" + urlToday + cityName + "&appid=" + apiKey + "&units=" + unit)
         // Convert data to json    
@@ -36,7 +36,7 @@ searchWeather = (cityName) => {
 displayWeatherInfo = (apiData) => {
     console.log(apiData);
 
-    //TODO: Change background when after sunset and from morning till sunset, local time
+    //TODO: Change background when after sunset and from morning till sunset, local time or according to city with other api
 
     // changing the background depending on which info it gets from the api
     let weather = apiData.weather[0].main;
@@ -174,7 +174,6 @@ getForecast = (forecastData) => {
 
     for (i = 0; i < daysOfForecast.length; i++) {
 
-        daysOfForecast[i];
         daysOfForecast[i].innerHTML = daysOfWeek[daysOfForecastInNumbers[i]];
 
     };
@@ -199,7 +198,7 @@ getForecast = (forecastData) => {
     ];
 
     for (i = 0; i < dayTemperatures.length; i++) {
-        dayTemperatures[i];
+
         dayTemperatures[i].innerHTML = Math.floor(forecastData.daily[i + 1].temp.day) + "°c";
     };
 
@@ -223,7 +222,7 @@ getForecast = (forecastData) => {
     ];
 
     for (i = 0; i < dayDescriptions.length; i++) {
-        dayDescriptions[i];
+
         dayDescriptions[i].innerHTML = forecastData.daily[i + 1].weather[0].main;;
     };
 
