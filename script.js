@@ -99,32 +99,29 @@ displayWeatherInfo = (apiData) => {
 
 
 getLongitude = (data) => {
-    long = data.coord.lon;
-    lat = data.coord.lat;
-    // console.log(long, lat);
+        long = data.coord.lon;
+        lat = data.coord.lat;
+        // console.log(long, lat);
 
-    forecastInfo = () => {
-        // also check `${}`
-        // Using a default setting from api to test, needs to get coordinates from current weather api
+        forecastInfo = () => {
+            // also check `${}`
 
-        fetch("https://" + urlForecast + "lat=" + lat + "&lon=" + long + "&units=" + unit + "&appid=" + apiKey)
-            // Convert data to json    
-            .then(function(result) {
-                return result.json()
-            })
-            .then(function(result) {
-                getForecast(result);
-            })
-            .catch(function() {
-                // catch any errors
-            });
+            fetch("https://" + urlForecast + "lat=" + lat + "&lon=" + long + "&units=" + unit + "&appid=" + apiKey)
+                // Convert data to json    
+                .then(function(result) {
+                    return result.json()
+                })
+                .then(function(result) {
+                    getForecast(result);
+                })
+                .catch(function() {
+                    // catch any errors
+                });
+        }
+        forecastInfo();
+
     }
-    forecastInfo();
-
-}
-
-
-// Forecast section
+    // Forecast section
 
 getForecast = (forecastData) => {
     console.log(forecastData);
@@ -167,22 +164,27 @@ getForecast = (forecastData) => {
     //TODO: Adjust temperatures according to part of the day
 
     // Assigning the temperatures to the corresponding html element
-    for (i = 1; i < 6; i++) {}
 
     let day1Temp = document.getElementById("day-1-temperature");
-    day1Temp.innerHTML = Math.floor(forecastData.daily[1].temp.day) + "°c";
-
     let day2Temp = document.getElementById("day-2-temperature");
-    day2Temp.innerHTML = Math.floor(forecastData.daily[2].temp.day) + "°c";
-
     let day3Temp = document.getElementById("day-3-temperature");
-    day3Temp.innerHTML = Math.floor(forecastData.daily[3].temp.day) + "°c";
-
     let day4Temp = document.getElementById("day-4-temperature");
-    day4Temp.innerHTML = Math.floor(forecastData.daily[4].temp.day) + "°c";
-
     let day5Temp = document.getElementById("day-5-temperature");
-    day5Temp.innerHTML = Math.floor(forecastData.daily[5].temp.day) + "°c";
+
+    let dayTemperatures = [
+
+        day1Temp,
+        day2Temp,
+        day3Temp,
+        day4Temp,
+        day5Temp,
+    ];
+
+    for (i = 1; i < 6; i++) {
+        dayTemperatures[i - 1];
+        dayTemperatures[i - 1].innerHTML = Math.floor(forecastData.daily[i].temp.day) + "°c";
+    }
+
 
     // Assigning a small description to the corresponding html element
     let day1Description = document.getElementById("day-1-description");
