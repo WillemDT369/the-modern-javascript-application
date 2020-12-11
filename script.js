@@ -135,6 +135,19 @@ getForecast = (forecastData) => {
     let day4 = new Date(forecastData.daily[4].dt * 1000);
     let day5 = new Date(forecastData.daily[5].dt * 1000);
 
+    // let days = [
+
+    //     day1,
+    //     day2,
+    //     day3,
+    //     day4,
+    //     day5,
+    // ];
+
+    // days.forEach((value, index) => {
+    //     value = new Date(forecastData.daily[index + 1].dt * 1000);;
+    // })
+
     // Getting the days in numbers for the forecast
     let dayOfForecast1 = day1.getDay();
     let dayOfForecast2 = day2.getDay();
@@ -142,23 +155,43 @@ getForecast = (forecastData) => {
     let dayOfForecast4 = day4.getDay();
     let dayOfForecast5 = day5.getDay();
 
+
+    let daysOfForecastInNumbers = [
+
+        dayOfForecast1,
+        dayOfForecast2,
+        dayOfForecast3,
+        dayOfForecast4,
+        dayOfForecast5,
+
+    ]
+
     let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     // Assigning the days to the corresponding html element
+
     let day1Day = document.getElementById("day-1-day");
-    day1Day.innerHTML = daysOfWeek[dayOfForecast1];
-
     let day2Day = document.getElementById("day-2-day");
-    day2Day.innerHTML = daysOfWeek[dayOfForecast2];
-
     let day3Day = document.getElementById("day-3-day");
-    day3Day.innerHTML = daysOfWeek[dayOfForecast3];
-
     let day4Day = document.getElementById("day-4-day");
-    day4Day.innerHTML = daysOfWeek[dayOfForecast4];
-
     let day5Day = document.getElementById("day-5-day");
-    day5Day.innerHTML = daysOfWeek[dayOfForecast5];
+
+    let daysOfForecast = [
+
+        day1Day,
+        day2Day,
+        day3Day,
+        day4Day,
+        day5Day,
+
+    ];
+
+    for (i = 0; i < daysOfForecast.length; i++) {
+
+        daysOfForecast[i];
+        daysOfForecast[i].innerHTML = daysOfWeek[daysOfForecastInNumbers[i]];
+
+    };
 
     //TODO: Try making for-loops
     //TODO: Adjust temperatures according to part of the day
@@ -180,9 +213,9 @@ getForecast = (forecastData) => {
         day5Temp,
     ];
 
-    for (i = 1; i < 6; i++) {
-        dayTemperatures[i - 1];
-        dayTemperatures[i - 1].innerHTML = Math.floor(forecastData.daily[i].temp.day) + "°c";
+    for (i = 0; i < dayTemperatures.length; i++) {
+        dayTemperatures[i];
+        dayTemperatures[i].innerHTML = Math.floor(forecastData.daily[i + 1].temp.day) + "°c";
     }
 
 
@@ -204,25 +237,9 @@ getForecast = (forecastData) => {
 
     ];
 
-    for (i = 1; i < 6; i++) {
-        dayDescriptions[i - 1];
-        dayDescriptions[i - 1].innerHTML = forecastData.daily[i].weather[0].main;;
+    for (i = 0; i < dayDescriptions.length; i++) {
+        dayDescriptions[i];
+        dayDescriptions[i].innerHTML = forecastData.daily[i + 1].weather[0].main;;
     }
-
-
-    // let day1Description = document.getElementById("day-1-description");
-    // day1Description.innerHTML = forecastData.daily[1].weather[0].main;
-
-    // let day2Description = document.getElementById("day-2-description");
-    // day2Description.innerHTML = forecastData.daily[2].weather[0].main;
-
-    // let day3Description = document.getElementById("day-3-description");
-    // day3Description.innerHTML = forecastData.daily[3].weather[0].main;
-
-    // let day4Description = document.getElementById("day-4-description");
-    // day4Description.innerHTML = forecastData.daily[4].weather[0].main;
-
-    // let day5Description = document.getElementById("day-5-description");
-    // day5Description.innerHTML = forecastData.daily[5].weather[0].main;
 
 }
