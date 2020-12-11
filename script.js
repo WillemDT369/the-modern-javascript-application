@@ -3,8 +3,6 @@ let apiKey = "973c1e93dca799be6bfb0246ebbab1b3";
 let urlToday = "api.openweathermap.org/data/2.5/weather?q=";
 let urlForecast = "api.openweathermap.org/data/2.5/onecall?";
 
-let longitude = 50.98;
-let latitude = 3.87;
 
 document.getElementById("run").addEventListener("click", (event) => {
     // city has to be inside here otherwise it gets stuck in the first chosen city
@@ -14,9 +12,6 @@ document.getElementById("run").addEventListener("click", (event) => {
     event.preventDefault();
     if (searchWeather(city)) {
         searchWeather(city);
-    }
-    if (forecastInfo(city)) {
-        forecastInfo(city)
     }
 })
 
@@ -36,21 +31,14 @@ function searchWeather(cityName) {
             // catch any errors
         });
 }
-//TODO: get long and latit out of the function or find other way to make it work
-function getLongitude(data) {
-    let long = data.coord.lon;
-    let latit = data.coord.lat;
-    console.log(long, latit);
-    // return long;
-}
 
-
+// Current weather section
 function displayWeatherInfo(apiData) {
     console.log(apiData);
 
     //TODO: Change background when after sunset and from morning till sunset, local time
-    // changing the background depending on which info it gets from the api
 
+    // changing the background depending on which info it gets from the api
     let weather = apiData.weather[0].main;
     switch (weather) {
         case "Clear":
@@ -86,10 +74,14 @@ function displayWeatherInfo(apiData) {
     weatherIcon.src = "http://openweathermap.org/img/wn/" + apiData.weather[0].icon + ".png";
 
     let temperature = document.getElementById("temperature");
-    temperature.innerHTML = "Todays temperature is " + Math.floor(apiData.main.temp) + "°C,";
+    temperature.innerHTML = "Thermometer says<br>" + "<span>" + Math.floor(apiData.main.temp) + "°C," + "</span>";
 
     let temperatureFeel = document.getElementById("temperatureFeel");
-    temperatureFeel.innerHTML = "but it feels like " + Math.floor(apiData.main.feels_like) + "°C"
+    if (Math.floor(apiData.main.feels_like) > Math.floor(apiData.main.temp)) {
+        temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", nice";
+    } else {
+        temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", ahh bummer";
+    }
 
     let windSpeed = document.getElementById("windSpeed");
     windSpeed.innerHTML = "Wind blows at " + apiData.wind.speed + "m/s";
@@ -104,30 +96,40 @@ function displayWeatherInfo(apiData) {
     weatherForecast.style.visibility = "visible";
 }
 
-function forecastInfo() {
-    // also check `${}`
-    // Using a default setting from api to test, needs to get coordinates50.98
-    //
 
-    fetch("https://" + urlForecast + "lat=" + longitude + "&lon=" + latitude + "&units=" + unit + "&appid=" + apiKey)
-        // Convert data to json    
-        .then(function(result) {
-            return result.json()
-        })
-        .then(function(result) {
-            getForecast(result);
-        })
-        .catch(function() {
-            // catch any errors
-        });
+
+function getLongitude(data) {
+    long = data.coord.lon;
+    lat = data.coord.lat;
+    // console.log(long, lat);
+
+    function forecastInfo() {
+        // also check `${}`
+        // Using a default setting from api to test, needs to get coordinates from current weather api
+
+        fetch("https://" + urlForecast + "lat=" + lat + "&lon=" + long + "&units=" + unit + "&appid=" + apiKey)
+            // Convert data to json    
+            .then(function(result) {
+                return result.json()
+            })
+            .then(function(result) {
+                getForecast(result);
+            })
+            .catch(function() {
+                // catch any errors
+            });
+    }
+    forecastInfo();
+
 }
+
+
 // Forecast section
 
-//TODO: create days of the week for forecast
 function getForecast(forecastData) {
     console.log(forecastData);
 
-    // creating days of week
+    // Creating days of week
 
     // Get date From UNIX Timestamp
     let day1 = new Date(forecastData.daily[1].dt * 1000);
@@ -144,8 +146,6 @@ function getForecast(forecastData) {
     let dayOfForecast5 = day5.getDay();
 
     let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    console.log(daysOfWeek[dayOfForecast1]);
-
 
     // Assigning the days to the corresponding html element
     let day1Day = document.getElementById("day-1-day");
