@@ -82,14 +82,21 @@ displayWeatherInfo = (apiData) => {
         temperatureFeel.innerHTML = `Rather feels like<br><span>${Math.floor(apiData.main.feels_like)} °C</span>, ahh bummer`;
     };
     let windSpeed = document.getElementById("windSpeed");
-    windSpeed.innerHTML = `Wind blows at${apiData.wind.speed}m/s`;
+    windSpeed.innerHTML = `Wind blows at ${apiData.wind.speed} m/s`;
 
-    //TODO: convert degrees to wind direction (N, E, S, W)
+    let windDegrees = apiData.wind.deg;
     let windDirection = document.getElementById("windDirection");
-    windDirection.innerHTML = `Wind direction is${apiData.wind.deg}degrees`;
+
+    windDirection.innerHTML = `Wind direction is ${degToCompass(windDegrees)}`
+
+    function degToCompass(num) {
+        var val = Math.floor((num / 22.5) + 0.5);
+        var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+        return arr[(val % 16)];
+    }
 
     let humidity = document.getElementById("humidity");
-    humidity.innerHTML = `Humidity levels at${apiData.main.humidity}%`;
+    humidity.innerHTML = `Humidity levels at ${apiData.main.humidity} %`;
 
     // making the weatherforecast visible when clicked
     weatherForecast.style.visibility = "visible";
