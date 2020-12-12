@@ -17,8 +17,7 @@ document.getElementById("run").addEventListener("click", (event) => {
 
 searchWeather = (cityName) => {
 
-    // also check `${}`syntax
-    fetch("https://" + urlToday + cityName + "&appid=" + apiKey + "&units=" + unit)
+    fetch(`https://${urlToday}${cityName}&appid=${apiKey}&units=${unit}`)
         // Convert data to json    
         .then(function(result) {
             return result.json()
@@ -71,26 +70,26 @@ displayWeatherInfo = (apiData) => {
     description.innerHTML = apiData.weather[0].description;
 
     let weatherIcon = document.getElementById("weatherIcon");
-    weatherIcon.src = "http://openweathermap.org/img/wn/" + apiData.weather[0].icon + ".png";
+    weatherIcon.src = `http://openweathermap.org/img/wn/${apiData.weather[0].icon}.png`;
 
     let temperature = document.getElementById("temperature");
-    temperature.innerHTML = "Thermometer says<br>" + "<span>" + Math.floor(apiData.main.temp) + "°C," + "</span>";
+    temperature.innerHTML = `Thermometer says<br><span>${Math.floor(apiData.main.temp)} °C,</span>`;
 
     let temperatureFeel = document.getElementById("temperatureFeel");
     if (Math.floor(apiData.main.feels_like) > Math.floor(apiData.main.temp)) {
-        temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", nice";
+        temperatureFeel.innerHTML = `Rather feels like<br><span>${Math.floor(apiData.main.feels_like)} °C</span>, nice`;
     } else {
-        temperatureFeel.innerHTML = "Rather feels like<br>" + "<span>" + Math.floor(apiData.main.feels_like) + "°C" + "</span>" + ", ahh bummer";
+        temperatureFeel.innerHTML = `Rather feels like<br><span>${Math.floor(apiData.main.feels_like)} °C</span>, ahh bummer`;
     };
-
     let windSpeed = document.getElementById("windSpeed");
-    windSpeed.innerHTML = "Wind blows at " + apiData.wind.speed + "m/s";
+    windSpeed.innerHTML = `Wind blows at${apiData.wind.speed}m/s`;
 
+    //TODO: convert degrees to wind direction (N, E, S, W)
     let windDirection = document.getElementById("windDirection");
-    windDirection.innerHTML = "Wind direction is " + apiData.wind.deg + " degrees";
+    windDirection.innerHTML = `Wind direction is${apiData.wind.deg}degrees`;
 
     let humidity = document.getElementById("humidity");
-    humidity.innerHTML = "Humidity levels at " + apiData.main.humidity + "%";
+    humidity.innerHTML = `Humidity levels at${apiData.main.humidity}%`;
 
     // making the weatherforecast visible when clicked
     weatherForecast.style.visibility = "visible";
@@ -103,9 +102,8 @@ getLongitude = (data) => {
         lat = data.coord.lat;
 
         forecastInfo = () => {
-            // also check `${}`
 
-            fetch("https://" + urlForecast + "lat=" + lat + "&lon=" + long + "&units=" + unit + "&appid=" + apiKey)
+            fetch(`https://${urlForecast}lat=${lat}&lon=${long}&units=${unit}&appid=${apiKey}`)
                 // Convert data to json    
                 .then(function(result) {
                     return result.json()
@@ -199,7 +197,7 @@ getForecast = (forecastData) => {
 
     for (i = 0; i < dayTemperatures.length; i++) {
 
-        dayTemperatures[i].innerHTML = Math.floor(forecastData.daily[i + 1].temp.day) + "°c";
+        dayTemperatures[i].innerHTML = `${Math.floor(forecastData.daily[i + 1].temp.day)}°c`;
     };
 
 
