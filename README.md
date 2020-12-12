@@ -1,6 +1,4 @@
 # Modern Javascript Application
-TODO: Write readme
-
 ### What
 This is an exercise about the application of modern javascript. In the previous exercise we had to make a [weather app](https://willemdt369.github.io/the-modern-javascript-application/index.html), which in this exercise has gone through the process of applying modern javascript to. 
 ### Objectives
