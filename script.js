@@ -72,6 +72,7 @@ displayWeatherInfo = (apiData) => {
     let weatherIcon = document.getElementById("weatherIcon");
     weatherIcon.src = `http://openweathermap.org/img/wn/${apiData.weather[0].icon}.png`;
 
+    //TODO: Adjust temperatures according to part of the day
     let temperature = document.getElementById("temperature");
     temperature.innerHTML = `Thermometer says<br><span>${Math.floor(apiData.main.temp)} °C,</span>`;
 
@@ -87,9 +88,10 @@ displayWeatherInfo = (apiData) => {
     let windDegrees = apiData.wind.deg;
     let windDirection = document.getElementById("windDirection");
 
-    windDirection.innerHTML = `Wind direction is ${degToCompass(windDegrees)}`
+    windDirection.innerHTML = `Wind direction is ${degreesToCompass(windDegrees)}`
 
-    function degToCompass(num) {
+    // Converting degrees to wind direction
+    function degreesToCompass(num) {
         var val = Math.floor((num / 22.5) + 0.5);
         var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
         return arr[(val % 16)];
@@ -98,7 +100,7 @@ displayWeatherInfo = (apiData) => {
     let humidity = document.getElementById("humidity");
     humidity.innerHTML = `Humidity levels at ${apiData.main.humidity} %`;
 
-    // making the weatherforecast visible when clicked
+    // Making the weatherforecast visible when clicked
     weatherForecast.style.visibility = "visible";
 }
 
@@ -119,7 +121,7 @@ getLongitude = (data) => {
                     getForecast(result);
                 })
                 .catch(function() {
-                    // catch any errors
+                    // Catch any errors
                 });
         }
         forecastInfo();
@@ -182,8 +184,6 @@ getForecast = (forecastData) => {
         daysOfForecast[i].innerHTML = daysOfWeek[daysOfForecastInNumbers[i]];
 
     };
-
-    //TODO: Adjust temperatures according to part of the day
 
     // Assigning the temperatures to the corresponding html element
 
